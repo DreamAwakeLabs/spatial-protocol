@@ -22,4 +22,17 @@ The same contract should be usable by an Unreal game, Unity application, Apple V
 - Results report what actually happened
 - High-rate video/audio/pose streams stay on fit-for-purpose media transports
 
-See `SPEC.md` and `roadmap/STATE.md`.
+## Repository layout
+
+```text
+SPEC.md                       normative design
+schemas/                      executable JSON Schemas
+docs/                         architecture and agent rules
+roadmap/STATE.md              implementation queue / ground truth
+fixtures/                     shared conformance vectors
+packages/                     language bindings (planned)
+```
+
+The first alpha is complete when two fake nodes can register, advertise a capability, exchange an idempotent action request/result flow, reject an expired action, and validate the exchange against the same schemas used by every SDK.
+
+See [SPEC.md](SPEC.md), [docs/PLATFORM-NEUTRALITY.md](docs/PLATFORM-NEUTRALITY.md), and [roadmap/STATE.md](roadmap/STATE.md).

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dreamawake.ai/dasp/0.1/action-result-payload.schema.json",
+  "title": "DASP Action Result Payload",
+  "type": "object",
+  "required": ["actionId", "status", "code"],
+  "properties": {
+    "actionId": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "status": { "enum": ["accepted", "rejected", "started", "progress", "completed", "failed", "cancelled", "timedOut"] },
+    "code": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "message": { "type": ["string", "null"], "maxLength": 1024 },
+    "progress": { "type": "number", "minimum": 0, "maximum": 1 },
+    "data": { "type": "object" },
+    "extensions": { "type": "object" }
+  },
+  "additionalProperties": false
+}

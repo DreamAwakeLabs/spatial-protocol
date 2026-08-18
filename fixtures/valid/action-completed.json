@@ -1,0 +1,16 @@
+{
+  "specVersion": "0.1",
+  "messageId": "01K3S94Y3FCQEC33BHE3G6EVDA",
+  "kind": "action.result",
+  "sessionId": "session:01K3S90TE6CK8TEKFG7JK0B5AA",
+  "source": "node:unreal-primary",
+  "target": "node:narrative-adapter",
+  "timestamp": "2026-08-16T23:45:12.482Z",
+  "payloadVersion": 1,
+  "payload": {
+    "actionId": "01K3S94XQVAGKMX9MVDJKX8QYJ",
+    "status": "completed",
+    "code": "ok",
+    "data": {}
+  }
+}

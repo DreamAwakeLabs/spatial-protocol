@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dreamawake.ai/dasp/0.1/event-observed-payload.schema.json",
+  "title": "DASP Observed Event Payload",
+  "type": "object",
+  "required": ["eventId", "eventType", "data"],
+  "properties": {
+    "eventId": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "eventType": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*(\\.[a-z][A-Za-z0-9]*)+$" },
+    "actorEntityId": { "$ref": "entity-id.schema.json" },
+    "targetEntityId": { "$ref": "entity-id.schema.json" },
+    "zoneId": { "$ref": "entity-id.schema.json" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "provenance": { "type": "string", "maxLength": 128 },
+    "data": { "type": "object" },
+    "extensions": { "type": "object" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+{
+  "specVersion": "0.1",
+  "messageId": "01K3SA0J7G73Y7ET3NFK8BKPM9",
+  "kind": "node.hello",
+  "source": "node:reachy-east",
+  "timestamp": "2026-08-17T06:46:10.200Z",
+  "payloadVersion": 1,
+  "payload": {
+    "nodeId": "node:reachy-east",
+    "instanceId": "01K3SA0HMRW2VEJ2DBQ2ZRQV7P",
+    "installationId": "installation:dream-awake-lab",
+    "nodeKind": "robot",
+    "displayName": "Reachy East",
+    "software": { "name": "dasp-reachy-node", "version": "0.1.0" },
+    "supportedSpecVersions": ["0.1"]
+  }
+}

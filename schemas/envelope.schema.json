@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dreamawake.ai/dasp/0.1/envelope.schema.json",
+  "title": "DASP v0.1 Envelope",
+  "type": "object",
+  "required": ["specVersion", "messageId", "kind", "source", "timestamp", "payloadVersion", "payload"],
+  "properties": {
+    "specVersion": { "const": "0.1" },
+    "messageId": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "kind": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "sessionId": { "$ref": "entity-id.schema.json" },
+    "source": { "$ref": "node-id.schema.json" },
+    "target": { "$ref": "node-id.schema.json" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "traceId": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "causationId": { "type": ["string", "null"] },
+    "correlationId": { "type": ["string", "null"] },
+    "ttlMs": { "type": ["integer", "null"], "minimum": 1 },
+    "payloadVersion": { "type": "integer", "minimum": 1 },
+    "payload": { "type": "object" },
+    "extensions": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$" }
+    }
+  },
+  "additionalProperties": false
+}

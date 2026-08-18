@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.dreamawake.ai/dasp/0.1/action-request-payload.schema.json",
+  "title": "DASP Action Request Payload",
+  "type": "object",
+  "required": ["actionId", "capability", "capabilityVersion", "arguments"],
+  "properties": {
+    "actionId": { "type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$" },
+    "capability": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*(\\.[a-z][A-Za-z0-9]*)+$" },
+    "capabilityVersion": { "type": "integer", "minimum": 1 },
+    "executorEntityId": { "$ref": "entity-id.schema.json" },
+    "targetEntityId": { "$ref": "entity-id.schema.json" },
+    "arguments": { "type": "object" },
+    "priority": { "type": "integer", "minimum": 0, "maximum": 100, "default": 50 },
+    "concurrencyKey": { "type": "string", "maxLength": 128 },
+    "requireFinalResult": { "type": "boolean", "default": true },
+    "extensions": { "type": "object" }
+  },
+  "additionalProperties": false
+}
