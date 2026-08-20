@@ -10,7 +10,13 @@ A fresh agent must orient from repository files and git/PR state, not remembered
 
 Each repository owns one layer. Do not solve a cross-repo problem by adding a private shortcut dependency that bypasses DASP.
 
-Shared DASP contracts must never expose Unreal, Unity, visionOS/RealityKit, Android XR, Meta Quest/OpenXR, Seer, TouchDesigner, or robotics implementation types. Platform concepts terminate at adapters. If a proposed abstraction only makes sense on one runtime, it belongs in that runtime package rather than DASP.
+Shared DASP contracts must never expose Unreal, Unity, visionOS/RealityKit, Android XR, Meta Quest/OpenXR, private story-engine/provider, media-tool, or robotics implementation types. Platform/provider concepts terminate at adapters. If a proposed abstraction only makes sense on one runtime or one provider, it belongs in that adapter/package rather than DASP.
+
+Public repositories must not disclose private narrative-provider/product names, private endpoint names, or private wire models. Use neutral terms such as `story engine`, `narrative provider`, and `provider-native API`.
+
+## Identity discipline
+
+Node, experience-session, participant, persona, and embodiment identity are distinct. Do not infer one from another. Shared designs must allow one experience session to contain multiple participants, runtime nodes, personas, embodiments, and provider-session mappings.
 
 ## Runtime safety
 
@@ -24,8 +30,9 @@ Never let a model invoke arbitrary methods, engine object paths, shell/code frag
 - Add unit/conformance tests at the same time as implementation.
 - Prefer fake backends/simulators so integration development is not blocked by hardware or another repository.
 - Keep transport, domain semantics, and implementation adapters separable.
-- Avoid speculative framework layers. Generalize only after at least two real consumers demonstrate the abstraction.
+- Avoid speculative framework layers. Generalize only after real consumers demonstrate the abstraction.
 - Preserve idempotency and explicit error behavior across retries/reconnects.
+- Preserve a stable DASP `messageId` when retrying the same logical event; preserve `actionId` for the same logical action.
 - Document architectural decisions that constrain another repository.
 
 ## Protocol change rule
