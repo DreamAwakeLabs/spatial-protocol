@@ -96,6 +96,18 @@ Recommended syntax:
 
 Static authored entities SHOULD use stable readable slugs. Dynamic entities SHOULD use ULIDs.
 
+### 3.1 Identity axes
+
+DASP keeps these identities distinct:
+
+- **node**: a connected runtime/process/device;
+- **session**: an experience-instance scope for related traffic;
+- **participant**: a human/player/agent participating in that experience;
+- **persona**: a narrative character/personality;
+- **embodiment**: a concrete visual, robotic, or audio body used to present a persona.
+
+A DASP session MAY contain multiple participants, runtime nodes, personas, and embodiments. DASP MUST NOT infer participant identity from a socket, node, or provider session. Provider-specific session identifiers are adapter-private mappings and are not canonical DASP identity.
+
 ## 4. Coordinate frames and units
 
 Cross-system geometry MUST identify a frame of reference. The recommended canonical installation frame is:
@@ -146,9 +158,9 @@ Every control message uses the same envelope:
 
 Required fields are `specVersion`, `messageId`, `kind`, `source`, `timestamp`, `payloadVersion`, and `payload`.
 
-`sessionId` is required for experience-scoped traffic and may be omitted during initial node registration or installation health operations.
+`sessionId` is required for experience-scoped traffic and may be omitted during initial node registration or installation health operations. `sessionId` names the DASP experience scope; it does not imply one player, one socket, or one provider-native session.
 
-`messageId` is a globally unique ULID. Retransmission of the same logical message SHOULD preserve the original message ID when deduplication is desired.
+`messageId` is a globally unique ULID. Retransmission of the same logical message SHOULD preserve the original message ID when deduplication is desired. Provider adapters SHOULD map a stable DASP event `messageId` one-to-one onto a provider-native idempotency token where the provider requires one.
 
 `sequence` is optional and monotonically increasing within a node instance/session scope. It is diagnostic ordering, not a global total order.
 
@@ -223,6 +235,8 @@ quest.stateChanged
 music.bar
 music.sectionChanged
 ```
+
+Participant-scoped events SHOULD carry an explicit `participantId` in their payload or a profile-defined participant reference. Consumers MUST NOT infer participant identity from `source`, transport connection, or session membership.
 
 Events MAY carry provenance and confidence. Confidence never turns a speculative observation into authority; downstream policy decides what evidence is sufficient.
 
@@ -305,15 +319,17 @@ The stream descriptor may carry semantic source identity, frame, unit, codec/for
 
 ## 14. Narrative Runtime Profile
 
-The core protocol remains narrative-engine neutral. A Narrative Runtime Profile will standardize portable concepts such as persona identity, utterances, addressed personas, quest/objective projections, narrative state, attention, and conversation lifecycle.
+The core protocol remains story-engine neutral. A Narrative Runtime Profile will standardize portable concepts such as persona identity, utterances, addressed personas, quest/objective projections, narrative state, attention, participant attribution, and conversation lifecycle.
 
-Seer, another cloud narrative engine, or a local model can implement that profile through an adapter. Runtime clients must not need Seer-specific types.
+Any cloud, local, or embedded story/narrative engine can implement that profile through an adapter. Runtime clients must not need provider-specific types.
 
-The Narrative Runtime Profile is intentionally a post-core-alpha milestone in `roadmap/STATE.md` so its abstractions are built on stable core envelopes/actions rather than creating a second wire system.
+A non-binding vocabulary draft lives in `docs/NARRATIVE-RUNTIME-PROFILE-DRAFT.md` so independent providers can align session, participant, perception, utterance, and idempotency semantics before the normative schemas are ratified.
+
+The Narrative Runtime Profile remains a post-core-alpha normative milestone in `roadmap/STATE.md` so its schemas are built on stable core envelopes/actions rather than creating a second wire system.
 
 ## 15. Platform neutrality
 
-Canonical DASP schemas MUST NOT expose Unreal, Unity, visionOS/RealityKit, Android XR, Meta Quest/OpenXR, TouchDesigner, Seer, or robot-SDK implementation types.
+Canonical DASP schemas MUST NOT expose Unreal, Unity, visionOS/RealityKit, Android XR, Meta Quest/OpenXR, media-tool, private story-engine/provider, or robot-SDK implementation types.
 
 A platform adapter maps neutral concepts to native concepts locally:
 
